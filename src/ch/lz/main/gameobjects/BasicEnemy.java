@@ -13,6 +13,7 @@ public class BasicEnemy extends GameObject {
     private Random r;
     private int size = 4;
     private Color color = Color.RED;
+
     private int weakCounter = 100;
 
     public BasicEnemy(int x, int y, ID id, Handler handler) {
@@ -61,5 +62,9 @@ public class BasicEnemy extends GameObject {
         }else{
             weakCounter = 0;
         }
+    }
+
+    public int getWeakCounter() {
+        return weakCounter;
     }
 }

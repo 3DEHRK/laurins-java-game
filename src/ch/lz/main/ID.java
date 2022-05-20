@@ -6,5 +6,6 @@ public enum ID {
     HEALTH,
     TRAIL,
     BASIC_ENEMY_WEAK,
-    WEAK
+    WEAK,
+    RAY
 }

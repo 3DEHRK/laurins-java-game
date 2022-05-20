@@ -28,8 +28,10 @@ public class Player extends GameObject {
         x = Game.clamp(x, 0, Game.WIDTH - 40);
         y = Game.clamp(y, 0, Game.HEIGHT - 60);
 
-        if(boost > 0)
+        if(boost > 0){
             hud.stamina = hud.stamina-2;
+            handler.addObject(new Trail(x,y, ID.TRAIL, Color.BLUE, size, 0.15f, false, this, handler));
+        }
         else
             hud.stamina = hud.stamina+1;
         if(hud.stamina < 1)
@@ -75,10 +77,22 @@ public class Player extends GameObject {
     }
 
     public void render(Graphics g){
+
         g.setColor(Color.WHITE);
         g.fillRect(x, y, size, size);
         g.setColor(Color.BLUE);
         g.fillRect(x+1, y+1, size-2,size-2);
+
+        g.setColor(Color.WHITE);
+        GameObject tempObject;
+        for (int z = 0; z < handler.getObjects().size(); z++){
+            tempObject = handler.getObjects().get(z);
+            if(tempObject.getId() == ID.BASIC_ENEMY_WEAK){
+                BasicEnemy tempEnemy = (BasicEnemy) tempObject;
+                if (tempEnemy.getWeakCounter() > 100)
+                    g.drawLine(tempObject.getX(),tempObject.getY(),x+(size/2),y+(size/2));
+            }
+        }
     }
 
     public int isBoost() {

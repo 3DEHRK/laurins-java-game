@@ -1,10 +1,9 @@
 package ch.lz.main;
 
-import ch.lz.main.gameobjects.BasicEnemy;
-import ch.lz.main.gameobjects.Health;
-import ch.lz.main.gameobjects.Player;
-import ch.lz.main.gameobjects.Weak;
+import ch.lz.main.gameobjects.*;
 
+import javax.swing.plaf.ColorUIResource;
+import java.awt.*;
 import java.util.Random;
 
 public class GameMode {
@@ -25,8 +24,8 @@ public class GameMode {
         this.handler = handler;
         this.hud = handler.getHUD();
         r = new Random();
-        healthCounterGoal = r.nextInt(15000);
-        weakCounterGoal = r.nextInt(15000);
+        healthCounterGoal = r.nextInt(10000);
+        weakCounterGoal = r.nextInt(10000);
     }
 
     public void tick(){
@@ -38,6 +37,10 @@ public class GameMode {
 
             handler.getObjects().clear();
             handler.addObject(new Player(Game.WIDTH/2-32, Game.HEIGHT/2-32, ID.PLAYER, handler));
+            for (int i = 0; i < 20; i++){
+                handler.addObject(new Ray(0,Game.HEIGHT/2,ID.RAY, Color.BLUE, handler, i, 0.02f));
+                handler.addObject(new Ray(0,Game.HEIGHT/2,ID.RAY, Color.BLUE, handler, i*-1, 0.02f));
+            }
             firstTick = false;
         }
 
@@ -45,14 +48,14 @@ public class GameMode {
             endGame();
 
         if(healthCounter > healthCounterGoal){
-            healthCounterGoal = r.nextInt(15000);
+            healthCounterGoal = r.nextInt(10000);
             handler.addObject(new Health(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT),ID.HEALTH, handler));
             healthCounter = 0;
         }
         healthCounter++;
 
         if(weakCounter > weakCounterGoal){
-            weakCounterGoal = r.nextInt(15000);
+            weakCounterGoal = r.nextInt(10000);
             handler.addObject(new Weak(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT),ID.WEAK, handler));
             weakCounter = 0;
         }
