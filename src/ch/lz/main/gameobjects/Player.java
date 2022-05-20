@@ -10,6 +10,7 @@ public class Player extends GameObject {
     private Handler handler;
     private HUD hud;
     private int size = 32;
+    private int boost = 0;
 
     public Player(int x, int y, ID id, Handler handler){
         super(x, y, id);
@@ -22,10 +23,17 @@ public class Player extends GameObject {
     }
 
     public void tick(){
-        x += velX;
-        y += velY;
+        x += velX + velX* boost;
+        y += velY + velY* boost;
         x = Game.clamp(x, 0, Game.WIDTH - 40);
         y = Game.clamp(y, 0, Game.HEIGHT - 60);
+
+        if(boost > 0)
+            hud.stamina = hud.stamina-2;
+        else
+            hud.stamina = hud.stamina+1;
+        if(hud.stamina < 1)
+            boost = 0;
 
         collision();
     }
@@ -71,5 +79,13 @@ public class Player extends GameObject {
         g.fillRect(x, y, size, size);
         g.setColor(Color.BLUE);
         g.fillRect(x+1, y+1, size-2,size-2);
+    }
+
+    public int isBoost() {
+        return boost;
+    }
+
+    public void setBoost(int boost) {
+        this.boost = boost;
     }
 }

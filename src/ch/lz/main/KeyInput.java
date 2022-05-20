@@ -1,5 +1,7 @@
 package ch.lz.main;
 
+import ch.lz.main.gameobjects.Player;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -23,24 +25,29 @@ public class KeyInput extends KeyAdapter {
         int key = e.getKeyCode();
 
         if(key == KeyEvent.VK_W){
-            handler.getObjects().get(0).setVelY(-6);
+            handler.getObjects().get(0).setVelY(-5);
             keyDown[0]=true;
         }
         if(key == KeyEvent.VK_S){
-            handler.getObjects().get(0).setVelY(6);
+            handler.getObjects().get(0).setVelY(5);
             keyDown[1]=true;
         }
         if(key == KeyEvent.VK_A){
-            handler.getObjects().get(0).setVelX(-6);
+            handler.getObjects().get(0).setVelX(-5);
             keyDown[2]=true;
         }
         if(key == KeyEvent.VK_D){
-            handler.getObjects().get(0).setVelX(6);
+            handler.getObjects().get(0).setVelX(5);
             keyDown[3]=true;
         }
 
         if(key == KeyEvent.VK_ESCAPE) System.exit(1);
         if(key == KeyEvent.VK_ENTER) handler.getGameMode().restartGame();
+
+        if(key == KeyEvent.VK_SHIFT){
+            Player tempPlayer = (Player) handler.getObjects().get(0);
+            tempPlayer.setBoost(1);
+        }
     }
 
     public void keyReleased(KeyEvent e){
@@ -52,5 +59,10 @@ public class KeyInput extends KeyAdapter {
 
         if(!keyDown[0] && !keyDown[1]) handler.getObjects().get(0).setVelY(0);
         if(!keyDown[2] && !keyDown[3]) handler.getObjects().get(0).setVelX(0);
+
+        if(key == KeyEvent.VK_SHIFT){
+            Player tempPlayer = (Player) handler.getObjects().get(0);
+            tempPlayer.setBoost(0);
+        }
     }
 }

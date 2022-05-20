@@ -34,6 +34,8 @@ public class GameMode {
             hud.health = 100;
             hud.score = 0;
             hud.end = false;
+            hud.stamina = 100;
+
             handler.getObjects().clear();
             handler.addObject(new Player(Game.WIDTH/2-32, Game.HEIGHT/2-32, ID.PLAYER, handler));
             firstTick = false;
