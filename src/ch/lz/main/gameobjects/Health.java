@@ -34,11 +34,11 @@ public class Health extends GameObject {
         if (x <= 0 || x >= Game.WIDTH - 25)
             velX *= -1;
 
-        handler.addObject(new Trail(x,y, ID.TRAIL, Color.YELLOW, size, 0.05f, true, this, handler));
+        handler.addObject(new Trail(x,y, ID.TRAIL, Color.GREEN, size, 0.05f, true, this, handler));
     }
 
     public void render(Graphics g) {
-        g.setColor(Color.YELLOW);
+        g.setColor(Color.GREEN);
         g.fillRect(x,y,size,size);
     }
 }
