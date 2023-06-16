@@ -3,7 +3,12 @@ package ch.lz.main;
 import ch.lz.main.gameobjects.*;
 
 import java.awt.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Random;
+import java.util.Scanner;
 
 public class GameMode {
 
@@ -33,6 +38,22 @@ public class GameMode {
             hud.score = 0;
             hud.end = false;
             hud.stamina = 100;
+
+            try {
+                File myObj = new File("highscore.txt");
+                Scanner myReader = new Scanner(myObj);
+                while (myReader.hasNextLine()) {
+                    String data = myReader.nextLine();
+                    try {
+                        hud.highscore = Integer.parseInt(data);
+                    } catch (NumberFormatException e){
+                        System.out.println("Unable to parse highscore.txt");
+                    }
+                }
+                myReader.close();
+            } catch (FileNotFoundException e) {
+                System.out.println("Unable to load highscore.txt");
+            }
 
             handler.getObjects().clear();
             handler.addObject(new Player(Game.WIDTH/2-32, Game.HEIGHT/2-32, ID.PLAYER, handler));
@@ -79,6 +100,24 @@ public class GameMode {
             hud.score++;
             if (hud.score > hud.highscore){
                 hud.highscore = hud.score;
+
+                try {
+                    File myObj = new File("highscore.txt");
+                    if (myObj.createNewFile()) {
+                        System.out.println("File created: " + myObj.getName());
+                    } else {
+                        try {
+                            FileWriter myWriter = new FileWriter("highscore.txt");
+                            myWriter.write("" + hud.highscore);
+                            myWriter.close();
+                            System.out.println("Highscore saved");
+                        } catch (IOException e) {
+                            System.out.println("Couldn't write to highscore.txt");
+                        }
+                    }
+                } catch (IOException e) {
+                    System.out.println("Couldn't create highscore.txt'");
+                }
             }
             scoreCounter = 0;
         }
