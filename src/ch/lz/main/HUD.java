@@ -43,7 +43,8 @@ public class HUD {
 
         g.setColor(Color.WHITE);
         g.drawString("Score: " + score, 20, 80);
-        g.setColor(Color.GRAY);g.drawString("Highscore: " + highscore, 20, 100);
+        g.setColor(Color.GRAY);
+        g.drawString("Highscore: " + highscore, 20, 100);
         g.setColor(Color.GRAY);
         g.drawString("FPS: " + fps, Game.WIDTH-100, 40);
     }

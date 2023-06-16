@@ -27,10 +27,9 @@ public class GameMode {
         weakCounterGoal = r.nextInt(10000);
     }
 
-    public void tick(int highscore){
+    public void tick(){
         if(firstTick){
             hud.health = 100;
-            hud.highscore = highscore;
             hud.score = 0;
             hud.end = false;
             hud.stamina = 100;
