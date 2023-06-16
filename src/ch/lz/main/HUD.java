@@ -6,10 +6,11 @@ public class HUD {
 
     public int health = 100;
     public int score = 0;
+    public int highscore = 0;
     public int fps;
     public int stamina = 100;
     public boolean end = false;
-    private int greenValue = 255;
+  private int greenValue = 255;
 
     public void tick(){
         health = Game.clamp(health, 0, 100);
@@ -42,6 +43,7 @@ public class HUD {
 
         g.setColor(Color.WHITE);
         g.drawString("Score: " + score, 20, 80);
+        g.setColor(Color.GRAY);g.drawString("Highscore: " + highscore, 20, 100);
         g.setColor(Color.GRAY);
         g.drawString("FPS: " + fps, Game.WIDTH-100, 40);
     }

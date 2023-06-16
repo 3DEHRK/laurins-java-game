@@ -13,7 +13,7 @@ public class Handler {
             GameObject tempObject = objects.get(i);
             tempObject.tick();
         }
-        gameMode.tick();
+        gameMode.tick(hud.highscore);
         hud.tick();
     }
 

@@ -2,7 +2,6 @@ package ch.lz.main;
 
 import ch.lz.main.gameobjects.*;
 
-import javax.swing.plaf.ColorUIResource;
 import java.awt.*;
 import java.util.Random;
 
@@ -28,9 +27,10 @@ public class GameMode {
         weakCounterGoal = r.nextInt(10000);
     }
 
-    public void tick(){
+    public void tick(int highscore){
         if(firstTick){
             hud.health = 100;
+            hud.highscore = highscore;
             hud.score = 0;
             hud.end = false;
             hud.stamina = 100;
@@ -78,6 +78,9 @@ public class GameMode {
 
         if(scoreCounter > 500){
             hud.score++;
+            if (hud.score > hud.highscore){
+                hud.highscore = hud.score;
+            }
             scoreCounter = 0;
         }
         scoreCounter++;
